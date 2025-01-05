@@ -48,7 +48,7 @@ class ProductDetailsProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final url = 'https://fakestoreapi.com/carts/3/remove';
+    final url = 'https://fakestoreapi.com/carts/3';
     try {
       final response = await http.delete(
         Uri.parse(url),
