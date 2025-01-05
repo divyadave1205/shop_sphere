@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_sphere/screens/details/view/product_details_screen.dart';
 import 'package:shop_sphere/screens/products/view_model/products_provider.dart';
-import 'package:shop_sphere/utils/app_routes.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key, required this.category});
@@ -28,12 +27,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ShopSphere'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
-          ),
-        ],
       ),
       body: Consumer<ProductProvider>(
         builder: (context, productProvider, child) {

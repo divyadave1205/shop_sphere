@@ -4,8 +4,9 @@ import 'dart:convert';
 
 class ProductDetailsProvider with ChangeNotifier {
   bool isLoading = false;
+  bool isQuantityLoading = false;
   bool isSuccess = false;
-  int _quantity = 0;
+  int _quantity = 1;
 
   int get quantity => _quantity;
 
@@ -47,7 +48,7 @@ class ProductDetailsProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final url = ' https://fakestoreapi.com/carts/3/remove';
+    final url = 'https://fakestoreapi.com/carts/3/remove';
     try {
       final response = await http.delete(
         Uri.parse(url),
@@ -66,7 +67,7 @@ class ProductDetailsProvider with ChangeNotifier {
   }
 
   Future<void> updateCart(int productId, int quantity) async {
-    isLoading = true;
+    isQuantityLoading = true;
     notifyListeners();
 
     final url = 'https://fakestoreapi.com/carts/3';
@@ -88,7 +89,7 @@ class ProductDetailsProvider with ChangeNotifier {
     } catch (error) {
       throw Exception('Failed to update cart: $error');
     } finally {
-      isLoading = false;
+      isQuantityLoading = false;
       notifyListeners();
     }
   }

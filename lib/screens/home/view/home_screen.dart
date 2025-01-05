@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_sphere/screens/home/view_model/home_provider.dart';
 import 'package:shop_sphere/screens/products/view/products_screen.dart';
-import 'package:shop_sphere/utils/app_routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,12 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ShopSphere'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
-          ),
-        ],
       ),
       body: Consumer<HomeProvider>(
         builder: (context, homeProvider, child) {

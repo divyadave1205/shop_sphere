@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_sphere/screens/details/view_model/product_details_provider.dart';
 import 'package:shop_sphere/screens/products/model/product_model.dart';
-import 'package:shop_sphere/utils/app_routes.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({
@@ -51,12 +50,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ShopSphere'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () => Navigator.pushNamed(context, AppRoutes.cart),
-          ),
-        ],
       ),
       body: Consumer<ProductDetailsProvider>(
         builder: (context, productDetailsProvider, child) {
@@ -152,11 +145,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               child: Center(child: Icon(Icons.add)),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                                productDetailsProvider.quantity.toString()),
-                          ),
+                          productDetailsProvider.isQuantityLoading
+                              ? CircularProgressIndicator()
+                              : Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text(productDetailsProvider.quantity
+                                      .toString()),
+                                ),
                           GestureDetector(
                             onTap: () async {
                               productDetailsProvider.updateCart(
