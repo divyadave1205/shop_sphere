@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_sphere/screens/details/view_model/product_details_provider.dart';
 import 'package:shop_sphere/screens/products/model/product_model.dart';
@@ -19,15 +18,6 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  @override
-  void initState() {
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<ProductDetailsProvider>(context, listen: false)
-          .getCart();
-    });
-    super.initState();
-  }
-
   Future<void> _addToCart() async {
     try {
       await Provider.of<ProductDetailsProvider>(context, listen: false)
@@ -147,51 +137,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 SizedBox(height: 20),
                 productDetailsProvider.isSuccess
                     ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
                             onTap: () async {
                               productDetailsProvider.updateCart(
                                   widget.product.id,
-                                  productDetailsProvider.products
-                                          .where((element) =>
-                                              element.productId ==
-                                              widget.product.id)
-                                          .first
-                                          .quantity +
-                                      1);
+                                  productDetailsProvider.quantity + 1);
                             },
                             child: Container(
-                              height: 20,
-                              width: 20,
+                              height: 50,
+                              width: 50,
                               color: Colors.blueAccent,
-                              child: Icon(Icons.add),
+                              child: Center(child: Icon(Icons.add)),
                             ),
                           ),
                           Container(
-                            child: Text(productDetailsProvider.products
-                                .where((element) =>
-                                    element.productId == widget.product.id)
-                                .first
-                                .quantity
-                                .toString()),
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                                productDetailsProvider.quantity.toString()),
                           ),
                           GestureDetector(
                             onTap: () async {
                               productDetailsProvider.updateCart(
                                   widget.product.id,
-                                  productDetailsProvider.products
-                                          .where((element) =>
-                                              element.productId ==
-                                              widget.product.id)
-                                          .first
-                                          .quantity -
-                                      1);
+                                  productDetailsProvider.quantity - 1);
                             },
                             child: Container(
-                              height: 20,
-                              width: 20,
+                              height: 50,
+                              width: 50,
                               color: Colors.blueAccent,
-                              child: Icon(Icons.remove),
+                              child: Center(child: Icon(Icons.remove)),
                             ),
                           ),
                         ],

@@ -2,39 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:shop_sphere/screens/details/model/cart_model.dart';
-
 class ProductDetailsProvider with ChangeNotifier {
   bool isLoading = false;
   bool isSuccess = false;
-  List<CartModel>? _products;
+  int _quantity = 0;
 
-  List<CartModel> get products => _products ?? [];
-
-  /// Fetch categories from API
-  Future<void> getCart() async {
-    isLoading = true;
-    notifyListeners();
-
-    const url = 'https://fakestoreapi.com/carts/user/2';
-    try {
-      final response = await http.get(
-        Uri.parse(url),
-      );
-      if (response.statusCode == 200) {
-        _products = List<CartModel>.from((json.decode(response.body))
-            .first['products']
-            .map((e) => CartModel.fromJson(e)));
-      } else {
-        throw Exception('Failed to add to cart');
-      }
-    } catch (error) {
-      throw Exception('Failed to add to cart: $error');
-    } finally {
-      isLoading = false;
-      notifyListeners();
-    }
-  }
+  int get quantity => _quantity;
 
   /// Fetch categories from API
   Future<void> addToCart(int productId) async {
@@ -58,7 +31,6 @@ class ProductDetailsProvider with ChangeNotifier {
         ),
       );
       if (response.statusCode == 200) {
-        await getCart();
         isSuccess = true;
       } else {
         throw Exception('Failed to add to cart');
@@ -81,7 +53,6 @@ class ProductDetailsProvider with ChangeNotifier {
         Uri.parse(url),
       );
       if (response.statusCode == 200) {
-        await getCart();
         isSuccess = false;
       } else {
         throw Exception('Failed to remove from cart');
@@ -98,7 +69,7 @@ class ProductDetailsProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final url = ' https://fakestoreapi.com/carts/3';
+    final url = 'https://fakestoreapi.com/carts/3';
     try {
       final response = await http.put(
         Uri.parse(url),
@@ -110,7 +81,7 @@ class ProductDetailsProvider with ChangeNotifier {
         ),
       );
       if (response.statusCode == 200) {
-        await getCart();
+        _quantity = quantity;
       } else {
         throw Exception('Failed to update cart');
       }
