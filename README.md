@@ -4,13 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Flutter version: 3.27.1
 
-A few resources to get you started if this is your first Flutter project:
+Use credentials ==>  username : mor_2314 password: 83r5^_
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+"App is taking too much time to load the data but it's not from app side."
+"API itself taking longer time to reposnd you can check by calling it on chrome"
+"Also for add to cart it only responds success but not actually adding data in database,
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+so, that's why i haven't created cart listing page.."
+
+"you can check it's docs they have provided info that they are not adding or removing anythig in database..."
